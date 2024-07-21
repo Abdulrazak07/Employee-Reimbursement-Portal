@@ -1,0 +1,118 @@
+<h1 class="title">Submitted Bills</h1>
+<div class="button-group">
+<div class="button-style">
+<%= link_to 'Add Bill', new_bill_path, class: 'btn btn-primary' %>
+<%= link_to 'View Employee', employees_path, class: 'btn btn-primary' %>
+</div>
+</div>
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>Amount</th>
+      <th>Type</th>
+      <th>Date of Submission</th>
+      <th>Employee Name</th>
+      <th>Department</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% total_amount = 0 %>
+
+    <% @bills.each do |bill| %>
+      <tr>
+        <td><%= bill.amount %></td>
+        <td><%= bill.bill_type %></td>
+        <td><%= bill.created_at.strftime('%Y-%m-%d') %></td>
+        <td><%= "#{bill.employee.first_name} #{bill.employee.last_name}" %></td>
+        <td><%= bill.employee.department&.name %></td>
+      </tr>
+       <% total_amount += bill.amount %>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <td colspan="1" class="text-right"><strong>Total Amount: <%=total_amount%></strong></td>
+</tfoot>
+</table>
+
+<style>
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+  .table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.75rem;
+    vertical-align: top;
+  }
+
+  .table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+  }
+
+  .table tbody + tbody {
+    border-top: 2px solid #dee2e6;
+  }
+
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .thead-dark th {
+    color: #fff;
+    background-color: #009879;
+    border-color: #454d55;
+  }
+
+  .btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #ffffff;
+    background-color: #009879;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    color: #fff;
+    background-color: #007a63;
+    border-color: #004085;
+  }
+
+  .button-style {
+    max-width: 410px;
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: end;
+  }
+</style>

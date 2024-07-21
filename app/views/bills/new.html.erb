@@ -1,0 +1,106 @@
+<h1 class="title">New Bill</h1>
+<%= form_with(model: @bill, local: true,  html: { class: "employee-form" }) do |form| %>
+  <% if @bill.errors.any? %>
+    <div id="error_explanation" class="error-messages">
+      <h2><%= pluralize(@bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
+      <ul>
+        <% @bill.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.text_field :amount, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bill_type %>
+        <%= form.select :bill_type, options_for_select([['Food', 'food'], ['Travel', 'travel'], ['Others', 'others']]), {}, { class: 'form-control' } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :employee_id, 'Submitted Employee' %>
+    <%= form.collection_select :employee_id, @employees, :id, :full_name, {prompt: "Select Employee"}, {class: "form-control"} %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: 'btn btn-secondary' %>
+      <%= link_to 'Back', bills_path,  class: 'btn btn-secondary' %>
+
+  </div>
+
+<% end %>
+
+
+
+
+<style>
+
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+  .employee-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .employee-form .field {
+    margin-bottom: 15px;
+  }
+
+ .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+ .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .employee-form .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  .employee-form .btn-primary:hover {
+    background-color: #0056b3;
+  }
+
+ .btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .btn-secondary:hover {
+    background-color: #5a6268;
+  }
+
+  .error-messages {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+
+  .error-messages h2 {
+    margin-top: 0;
+  }
+</style>

@@ -1,0 +1,127 @@
+<h1 class="title">Employees</h1>
+<div class="button-group">
+<div class="button-style">
+<%= link_to 'Add Employee', new_employee_path, class: 'new-employee-button' %>
+<%= link_to 'View Bills', bills_path, class: 'new-employee-button' %>
+<%= link_to 'View Department', departments_path, class: 'new-employee-button' %>
+</div>
+</div>
+
+<table class="employee-table">
+
+  <thead>
+  
+    <tr>
+      <th>Full Name</th>
+      <th>Designation</th>
+      <th>Department</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @employees.each do |employee| %>
+      <tr>
+        <td><%= "#{employee.first_name} #{employee.last_name}" %></td>
+        <td><%= employee.designation %></td>
+        <td><%= employee.department&.name %></td>
+        <td class="icon-group">
+          <%= link_to employee_path(employee), class:"icon" do %>
+            <i class="fa fa-eye"></i> 
+          <% end %>
+          <%= link_to edit_employee_path(employee), class:"icon" do %>
+            <i class="fa fa-edit"></i> 
+          <% end %>
+          <%= button_to employee_path(employee), method: :delete, data: { confirm: 'Are you sure?' }, class:"icon" do %>
+            <i class="fa fa-trash"></i>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<style>
+
+.icon {
+  border: none;
+    background: inherit;
+    font-size: 15px;
+    color: black;
+}
+
+.icon-group {
+    display: flex;
+    justify-content: center;
+}
+
+  .title {
+    display: flex;
+    justify-content: center;
+  }
+
+  .employee-table {
+    width: 100%;
+    border-collapse: collapse;
+    # margin: 20px 0;
+    font-size: 1.2em;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .employee-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .employee-table th,
+  .employee-table td {
+    padding: 12px 15px;
+  }
+
+  .employee-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+  }
+
+  .employee-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+
+  .employee-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+  }
+
+  .employee-table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  .new-employee-button {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #ffffff;
+    background-color: #009879;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .new-employee-button:hover {
+    background-color: #007a63;
+  }
+
+  .fa {
+    margin-right: 5px;
+  }
+
+  .button-style {
+    max-width: 410px;
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: end;
+  }
+</style>
